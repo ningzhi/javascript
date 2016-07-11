@@ -1,0 +1,48 @@
+//通用javascript事件监听函数
+var eventUtil={
+//添加事件监听
+  addEvent:function(element,type,hand){
+  if(element.addEventListener){
+      element.addEventListener(type,hand,false);
+    }else if(element.attachEvent){
+      element.attachEvent('on'+type,hand);
+    }else{
+      element['on'+type]=hand;
+    }
+    },
+    //移除事件
+    removeEvent:function(element,type,hand){
+      if(element.removeEventListener){
+          element.removeEventListener(type,hand,false);
+      }else if(element.detacEvent){
+          element.detachEvent('on'+type,hand);
+      }else{
+        element['on'+type]=null;
+      }
+    },
+    //获取事件
+    getEvent:function(e){
+    return e||window.event;
+    }
+    //阻止默认行为
+    preventDefaule:function(e){
+      if(e.preventDefault){
+        e.preventDefault();
+      }else{
+        e.returnValue=false;
+      }
+    },
+    //阻止事件冒泡
+    stopPropaga:function(e){
+      if(e.stopPropagation){
+        e.stopPropagation();
+      }else{
+        e.cancelBubble=ture;
+      }
+    },
+    //获取事件目标
+    getTarget:function(e){
+      var event=e||window.event;
+      return event.target||event.srcElement;
+    }
+}
